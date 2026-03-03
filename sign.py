@@ -12,14 +12,18 @@ def quark_sign():
 
     url = "https://drive.quark.cn/1/clouddrive/capacity/growth/sign?pr=ucpro&fr=pc&s=fe"
     headers = {
-        # 核心魔法：在这里伪装成苹果手机的夸克App，骗过服务器！
+        # 维持苹果手机的伪装身份
         "User-Agent": "Quark/6.9.2.326 (iPhone; iOS 16.5; Scale/3.00)",
         "Content-Type": "application/json",
         "Cookie": cookie
     }
     
+    # 👇 重点在这里！这是真正的“点击签到”动作指令
+    payload = {"sign_cyclic": True}
+    
     try:
-        response = requests.post(url, headers=headers)
+        # 把指令一起发送给夸克
+        response = requests.post(url, headers=headers, json=payload)
         response.encoding = 'utf-8'
         print("🎉 夸克返回结果：", response.text)
     except Exception as e:
